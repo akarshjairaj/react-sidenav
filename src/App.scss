@@ -1,0 +1,84 @@
+$headerHeight: 50px;
+$sectionCollapsedWidth: 64px;
+$sectionExpandedWidth: 240px;
+$transitionDuration: 0.4s;
+$navTextCollapsedWidth: 0px;
+$navTextExpandedWidth: 176px; //$sectionExpandedWidth - $sectionCollapsedWidth
+
+header {
+  background-color: #212121;
+  height: $headerHeight;
+}
+
+main {
+  display: flex;
+}
+
+section {
+  position: absolute;
+  max-height: calc(100% - #{$headerHeight});
+  overflow-y: scroll;
+  transition: margin-left $transitionDuration linear,
+    width $transitionDuration linear,
+    background-color $transitionDuration linear;
+}
+
+section.expanded {
+  margin-left: $sectionExpandedWidth;
+  width: calc(100% - #{$sectionExpandedWidth});
+}
+
+section.collapsed {
+  width: calc(100% - #{$sectionCollapsedWidth});
+  margin-left: $sectionCollapsedWidth;
+}
+
+aside {
+  position: absolute;
+  height: calc(100% - #{$headerHeight});
+  background-color: antiquewhite;
+  transition: width $transitionDuration linear,
+    background-color $transitionDuration linear;
+}
+
+.nav-toggle {
+  display: flex;
+  align-items: center;
+  padding: 15px 0px;
+  cursor: pointer;
+
+  .nav-icon {
+    font-size: 25px;
+    width: $sectionCollapsedWidth;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .nav-text {
+    margin: 0px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    transition: opacity $transitionDuration linear,
+      width $transitionDuration linear;
+  }
+}
+
+.nav-text.expanded {
+  width: $navTextExpandedWidth;
+  opacity: 1;
+}
+
+.nav-text.collapsed {
+  width: $navTextCollapsedWidth;
+  opacity: 0;
+}
+
+.nav-item {
+  @extend .nav-toggle;
+
+  &:hover {
+    background-color: burlywood;
+  }
+}

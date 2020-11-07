@@ -1,23 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.scss";
+import * as d3 from "d3";
+import { useState } from "react";
 
 function App() {
+  const [expanded, setExpanded] = useState(false);
+
+  const handleClick = () => setExpanded(!expanded);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <header></header>
+      <main>
+        <aside>
+          <div
+            className={`${expanded ? "expanded" : "collapsed"} nav-toggle`}
+            onClick={handleClick}
+          >
+            <i
+              className={`fa fa-chevron-circle-${
+                expanded ? "left" : "right"
+              } nav-icon`}
+            ></i>
+            <p
+              className={`${expanded ? "expanded" : "collapsed"} nav-text`}
+            ></p>
+          </div>
+          {d3.range(5).map((obj, index) => {
+            return (
+              <div className="nav-item">
+                <i className="fa fa-home nav-icon"></i>
+                <p
+                  className={`${expanded ? "expanded" : "collapsed"} nav-text`}
+                >
+                  Item
+                </p>
+              </div>
+            );
+          })}
+        </aside>
+        <section className={`${expanded ? "expanded" : "collapsed"}`}>
+          {d3.range(100).map((obj, index) => (
+            <p key={index}>Hello world!</p>
+          ))}
+        </section>
+      </main>
     </div>
   );
 }
